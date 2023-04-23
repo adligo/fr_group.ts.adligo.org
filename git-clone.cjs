@@ -60,5 +60,7 @@ run('git',['clone',base + 'adligo/fr_tests.ts.adligo.org.git']);
 run('git',['clone',base + 'adligo/i_io.ts.adligo.org.git']);
 run('git',['clone',base + 'adligo/paths.ts.adligo.org.git']);
 run('git',['clone',base + 'adligo/paths_tests.ts.adligo.org.git']);
+run('git',['clone',base + 'adligo/strings.ts.adligo.org.git']);
+run('git',['clone',base + 'adligo/strings_tests.ts.adligo.org.git']);
 run('git',['clone',base + 'adligo/tests4j.ts.adligo.org.git']);
 run('git',['clone',base + 'adligo/junitXml.tests4j.ts.adligo.org.git']);
