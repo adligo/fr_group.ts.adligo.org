@@ -53,14 +53,27 @@ for (var i=0; i < process.argv; i++) {
   }
 }
 
-run('git',['clone',base + 'adligo/cli.ts.adligo.org.git']);
-run('git',['clone',base + 'adligo/cli_tests.ts.adligo.org.git']);
-run('git',['clone',base + 'adligo/fr.ts.adligo.org.git']);
-run('git',['clone',base + 'adligo/fr_tests.ts.adligo.org.git']);
-run('git',['clone',base + 'adligo/i_io.ts.adligo.org.git']);
-run('git',['clone',base + 'adligo/paths.ts.adligo.org.git']);
-run('git',['clone',base + 'adligo/paths_tests.ts.adligo.org.git']);
-run('git',['clone',base + 'adligo/strings.ts.adligo.org.git']);
-run('git',['clone',base + 'adligo/strings_tests.ts.adligo.org.git']);
-run('git',['clone',base + 'adligo/tests4j.ts.adligo.org.git']);
-run('git',['clone',base + 'adligo/junitXml.tests4j.ts.adligo.org.git']);
+const projects = ['cli.ts.adligo.org',
+'cli_tests.ts.adligo.org',
+'fr.ts.adligo.org',
+'fr_tests.ts.adligo.org',
+'i_io.ts.adligo.org',
+'paths.ts.adligo.org',
+'paths_tests.ts.adligo.org',
+'strings.ts.adligo.org',
+'strings_tests.ts.adligo.org',
+'tests4j.ts.adligo.org',
+'junitXml.tests4j.ts.adligo.org'];
+
+function gitClone() {
+  projects.forEach((p) => {
+    run('git',['clone',base + 'adligo/' + p ]);
+  });
+}
+
+for (var i=0; i < process.argv; i++) {
+  let arg = argv[i];
+  if (arg == '--git-clone') {
+    gitClone();
+  }
+}

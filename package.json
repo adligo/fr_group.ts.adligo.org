@@ -31,8 +31,8 @@
     "url": "git+https://github.com/adligo/fr_group.ts.adligo.org.git"
   },
   "scripts": {
-    "git-clone": "node git-clone.cjs",
-    "git-clone-ssh": "node git-clone.cjs --ssh",
+    "git-clone": "node buildEtc.cjs --git-clone",
+    "git-clone-ssh": "node buildEtc.cjs --ssh --git-clone",
     "rm-all": "rm -fr *.ts.adligo.org",
     "tsc": "tsc"
   },
