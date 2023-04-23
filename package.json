@@ -1,0 +1,41 @@
+{
+  "author": "Scott Morgan",
+  "bugs": {
+    "url": "https://github.com/adligo/fr_group.ts.adligo.org/issues"
+  },
+  "description": "This is a simple wrapper project for building fr (fr.ts.adligo.org / aka find replace).",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "typescript": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.12"
+  },
+  "homepage": "https://github.com/adligo/fr_group.ts.adligo.org#readme",
+  "keywords": [
+    "ant",
+    "build",
+    "fabricate",
+    "fab",
+    "gradle",
+    "java",
+    "javascript",
+    "maven",
+    "typescript"
+  ],
+  "license": "Apache-2.0",
+  "name": "@ts.adligo.org/fr_group",
+  "main": "src/fab.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adligo/fr_group.ts.adligo.org.git"
+  },
+  "scripts": {
+    "git-clone": "node git-clone.cjs",
+    "git-clone-ssh": "node git-clone.cjs --ssh",
+    "rm-all": "rm -fr *.ts.adligo.org",
+    "tsc": "tsc"
+  },
+  "type": "module",
+  "version": "1.0.7"
+}

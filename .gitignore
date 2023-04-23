@@ -22,3 +22,19 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+/bin/
+/dist/
+/lib/
+/node_modules/
+
+#sub projects
+/cli.ts.adligo.org
+/cli_tests.ts.adligo.org
+/fr.ts.adligo.org
+/fr_tests.ts.adligo.org
+/junitXml.tests4j.ts.adligo.org
+/i_io.ts.adligo.org
+/i_fab.ts.adligo.org
+/paths.ts.adligo.org
+/paths_tests.ts.adligo.org
+/tests4j.ts.adligo.org
