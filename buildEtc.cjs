@@ -45,13 +45,6 @@ function run(cmd, args) {
   out(cc, spawnSync(cmd, args));
 }
 
-var base =  'https://github.com/';
-for (var i=0; i < process.argv; i++) {
-  let arg = argv[i];
-  if (arg == '--ssh') {
-    base = 'git@github.com:'
-  }
-}
 
 const projects = ['cli.ts.adligo.org',
 'cli_tests.ts.adligo.org',
@@ -63,9 +56,13 @@ const projects = ['cli.ts.adligo.org',
 'strings.ts.adligo.org',
 'strings_tests.ts.adligo.org',
 'tests4j.ts.adligo.org',
-'junitXml.tests4j.ts.adligo.org'];
+'xml.tests4j.ts.adligo.org'];
 
-function gitClone() {
+function gitClone(ssh) {
+  var base =  'https://github.com/';
+  if (ssh) {
+    base = 'git@github.com:'
+  }
   projects.forEach((p) => {
     run('git',['clone',base + 'adligo/' + p ]);
   });
@@ -74,6 +71,9 @@ function gitClone() {
 for (var i=0; i < process.argv; i++) {
   let arg = argv[i];
   if (arg == '--git-clone') {
-    gitClone();
+    gitClone(false);
+  }
+  if (arg == '--git-clone-ssh') {
+    gitClone(true);
   }
 }
