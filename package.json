@@ -32,7 +32,8 @@
   },
   "scripts": {
     "git-clone": "node buildEtc.cjs --git-clone",
-    "git-clone-ssh": "node buildEtc.cjs --git-clon-ssh",
+    "git-clone-ssh": "node buildEtc.cjs --git-clone-ssh",
+    "slink": "node buildEtc.cjs --slink",
     "rm-all": "rm -fr *.ts.adligo.org",
     "tsc": "tsc"
   },
