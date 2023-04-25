@@ -33,10 +33,13 @@ replay_pid*
 /fr.ts.adligo.org
 /fr_tests.ts.adligo.org
 /junitXml.tests4j.ts.adligo.org
+/i_cli.ts.adligo.org
 /i_io.ts.adligo.org
+/i_paths.ts.adligo.org
 /i_fab.ts.adligo.org
 /paths.ts.adligo.org
 /paths_tests.ts.adligo.org
 /strings.ts.adligo.org
 /strings_tests.ts.adligo.org
 /tests4j.ts.adligo.org
+/xml.tests4j.ts.adligo.org

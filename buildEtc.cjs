@@ -14,6 +14,7 @@
   * limitations under the License.
   */
 const { execSync, spawnSync } = require('child_process');
+var debug = false;
 const IS_WIN = process.platform === "win32";
 console.log('IS_WIN? = ' + IS_WIN);
 var npm = 'npm'
@@ -21,41 +22,73 @@ if (IS_WIN) {
   npm = 'npm.cmd'
 }
 
-function out(cmd, spawnSyncReturns, options) {
-  console.log('ran ' + cmd );
+/**
+ * returns a boolean
+ */
+function isBash() {
+  if (process.env.SHELL != undefined) {
+    if (process.env.SHELL.includes('bash')) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+function out(cmd, spawnSyncReturns, options, log) {
+  if (debug) {
+    console.log('ran ' + cmd );
+  }
   if (options != undefined) {
     //console.log('\twith options ' + JSON.stringify(options));
     if (options.cwd != undefined) {
-      console.log('\tin ' + options.cwd);
+      if (debug) {
+        console.log('\tin ' + options.cwd);
+      }
     } 
   }
-  console.log('\tand the spawnSyncReturns had;');
-  if (spawnSyncReturns.error != undefined) {
-    console.log('\tError: ' + spawnSyncReturns.error);
-    console.log('\t\t' + spawnSyncReturns.error.message);
-  }  
-  if (spawnSyncReturns.stderr != undefined) {
-    console.log('\tStderr: ' + spawnSyncReturns.stderr);
+  if (debug) {
+    console.log('\tand the spawnSyncReturns had;');
+    if (spawnSyncReturns.error != undefined) {
+      console.log('\tError: ' + spawnSyncReturns.error);
+      console.log('\t\t' + spawnSyncReturns.error.message);
+    }  
+    if (spawnSyncReturns.stderr != undefined) {
+      console.log('\tStderr: ' + spawnSyncReturns.stderr);
+    }
+    if (spawnSyncReturns.stdout != undefined) {
+      console.log('\tStdout: ' + spawnSyncReturns.stdout);
+    }
+    console.log('\tStdout: ' + spawnSyncReturns);
   }
-  if (spawnSyncReturns.stdout != undefined) {
-    console.log('\tStdout: ' + spawnSyncReturns.stdout);
-    return spawnSyncReturns.stdout;
-  }
-  console.log('\tStdout: ' + spawnSyncReturns);
   return '' + spawnSyncReturns;
 }
 
-function run(cmd, options) {
+function run(cmd, options, log) {
   var cc = cmd;
   return out(cc, execSync(cmd, options), options);
 }
 
-
+function exists(dir) {
+  try {
+    let ssr = run('ls ' + dir);
+    if (ssr.stdout != undefined) {
+      if (ssr.stdout.includes('No such file or directory')) {
+        return false;
+      }
+    }
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
 const projects = ['cli.ts.adligo.org',
 'cli_tests.ts.adligo.org',
 'fr.ts.adligo.org',
 'fr_tests.ts.adligo.org',
+'i_cli.ts.adligo.org',
 'i_io.ts.adligo.org',
+'i_paths.ts.adligo.org',
 'paths.ts.adligo.org',
 'paths_tests.ts.adligo.org',
 'strings.ts.adligo.org',
@@ -120,7 +153,12 @@ function gitClone(ssh) {
     base = 'git@github.com:'
   }
   projects.forEach((p) => {
-    run('git',['clone',base + 'adligo/' + p ]);
+    if ( !exists(p)) {
+      console.log(p + ' does NOT exist!');
+      run('git clone ' + base + 'adligo/' + p );
+    } else {
+      console.log(p + ' exists!');
+    }
   });
 }
 
@@ -143,6 +181,15 @@ function slink() {
 const args = process.argv;
 console.log('processing args ' + args.length);
 console.log('in ' + dir)
+if (IS_WIN) {
+  if (isBash()) {
+    console.log('You appear to be running GitBash on Windows, which is supported :)');
+  } else {
+    throw Error('Only GitBash is supported on Windows!');
+  }
+} else {
+  console.log('You appear to be running on some flavor of Unix, which is supported :)');
+}
 //run('slink',{ cdw:  'C:\\Users\\scott\\org-src\\fr_group.ts.adligo.org\\tests4j.ts.adligo.org'});
 try {
   for (var i=2; i < args.length; i++) {
